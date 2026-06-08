@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 에이전트 활용지도사 2급 모의고사 CBT</title>
+  <meta name="description" content="AI 에이전트 활용지도사 2급 공식 교재 기반의 50문항 모의고사 컴퓨터 기반 테스트(CBT) 애플리케이션입니다.">
+  
+  <!-- Font Configuration -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  
+  <!-- Icon Pack -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme"> <!-- Default to dark-theme for premium aesthetics -->
+  <div class="app-container">
+    
+    <!-- Theme & Sound Controls -->
+    <header class="app-header">
+      <div class="logo">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>AI 에이전트 활용지도사 2급 CBT</span>
+      </div>
+      <div class="controls">
+        <button id="theme-toggle" class="control-btn" aria-label="테마 전환" title="다크/라이트 모드 전환">
+          <i class="fa-solid fa-sun"></i>
+        </button>
+        <button id="sound-toggle" class="control-btn" aria-label="효과음 토글" title="효과음 켜기/끄기">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      
+      <!-- SCREEN 1: Welcome Screen -->
+      <section id="welcome-screen" class="screen active">
+        <div class="card welcome-card">
+          <div class="card-glow"></div>
+          <div class="welcome-badge">공식 교재 완벽 반영</div>
+          <h1 class="main-title">AI 에이전트 활용지도사 2급<br><span class="highlight">실전 모의고사</span></h1>
+          <p class="welcome-desc">
+            스마택트 공식 교재의 핵심 개념(AI 기초, 에이전트 이론, 실전 도구, 수업 설계)을 기반으로 출제된 고품질 50문항을 통해 완벽한 합격 자격을 검증해보세요.
+          </p>
+          
+          <div class="exam-info-grid">
+            <div class="info-item">
+              <i class="fa-regular fa-file-lines"></i>
+              <div class="info-label">문항 수</div>
+              <div class="info-value">50문제</div>
+            </div>
+            <div class="info-item">
+              <i class="fa-regular fa-clock"></i>
+              <div class="info-label">제한 시간</div>
+              <div class="info-value">60분</div>
+            </div>
+            <div class="info-item">
+              <i class="fa-solid fa-bullseye"></i>
+              <div class="info-label">합격 기준</div>
+              <div class="info-value">70점 이상 (35개)</div>
+            </div>
+          </div>
+
+          <div class="setup-container">
+            <div class="input-group">
+              <label for="user-name"><i class="fa-regular fa-user"></i> 응시자 성명</label>
+              <input type="text" id="user-name" placeholder="성명을 입력하세요" autocomplete="off" maxlength="10">
+            </div>
+            
+            <div class="mode-selector">
+              <span class="mode-label"><i class="fa-solid fa-sliders"></i> 시험 모드 선택</span>
+              <div class="mode-options">
+                <label class="mode-option">
+                  <input type="radio" name="exam-mode" value="practice" checked>
+                  <span class="mode-card">
+                    <span class="option-title">연습 모드 (연습용)</span>
+                    <span class="option-desc">문제를 풀 때마다 정답 여부와 해설(Rationale)을 실시간으로 확인합니다.</span>
+                  </span>
+                </label>
+                <label class="mode-option">
+                  <input type="radio" name="exam-mode" value="exam">
+                  <span class="mode-card">
+                    <span class="option-title">실전 모드 (평가용)</span>
+                    <span class="option-desc">시간 제한(60분)이 적용되며, 최종 답안 제출 후에 전체 성적과 해설을 확인합니다.</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button id="start-btn" class="btn btn-primary btn-large">
+            <span>시험 시작하기</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN 2: Exam Screen -->
+      <section id="exam-screen" class="screen">
+        <div class="exam-layout">
+          
+          <!-- Left: Question Area -->
+          <div class="question-container">
+            <div class="card exam-header-card">
+              <div class="exam-status">
+                <span id="active-mode-badge" class="badge">연습 모드</span>
+                <span id="candidate-name" class="candidate-name">응시자: JMCH</span>
+              </div>
+              <div class="timer-container" id="timer-box">
+                <i class="fa-regular fa-clock"></i>
+                <span id="timer">60:00</span>
+              </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="card question-card">
+              <div class="question-header">
+                <span class="q-number" id="q-number-title">Q1</span>
+                <button id="flag-btn" class="flag-btn" title="검토 표시 (북마크)">
+                  <i class="fa-regular fa-bookmark"></i>
+                  <span>검토 표시</span>
+                </button>
+              </div>
+              
+              <h2 class="question-text" id="question-text">
+                인공지능의 정의로 가장 올바른 것은 무엇인가요?
+              </h2>
+
+              <div class="options-container" id="options-container">
+                <!-- Answer options loaded dynamically -->
+              </div>
+
+              <!-- Real-time feedback container (Visible in Practice Mode) -->
+              <div class="feedback-container hidden" id="feedback-container">
+                <div class="feedback-status">
+                  <i id="feedback-icon" class="fa-solid"></i>
+                  <span id="feedback-text">정답입니다!</span>
+                </div>
+                <p class="feedback-rationale" id="feedback-rationale">
+                  여기에 상세 해설이 들어갑니다.
+                </p>
+              </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="exam-nav">
+              <button id="prev-btn" class="btn btn-secondary">
+                <i class="fa-solid fa-chevron-left"></i>
+                <span>이전 문항</span>
+              </button>
+              <div class="nav-middle">
+                <button id="hint-btn" class="btn btn-text">
+                  <i class="fa-regular fa-lightbulb"></i>
+                  <span>힌트 보기</span>
+                </button>
+                <div id="hint-tooltip" class="hint-tooltip hidden">
+                  <div class="hint-arrow"></div>
+                  <div class="hint-content" id="hint-content">힌트 내용입니다.</div>
+                </div>
+              </div>
+              <button id="next-btn" class="btn btn-secondary">
+                <span>다음 문항</span>
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Sidebar (Navigation Grid) -->
+          <div class="sidebar-container">
+            <div class="card sidebar-card">
+              <h3 class="sidebar-title">답안 마킹 및 진행 현황</h3>
+              
+              <!-- Progress Bar -->
+              <div class="progress-box">
+                <div class="progress-stats">
+                  <span>진행률</span>
+                  <span id="progress-percent">0% (0/50)</span>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill" id="progress-fill" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <!-- Navigation Grid -->
+              <div class="q-grid" id="q-grid">
+                <!-- 50 buttons generated dynamically -->
+              </div>
+
+              <div class="legend">
+                <div class="legend-item"><span class="dot dot-current"></span>현재</div>
+                <div class="legend-item"><span class="dot dot-answered"></span>풀었음</div>
+                <div class="legend-item"><span class="dot dot-flagged"></span>검토요망</div>
+                <div class="legend-item"><span class="dot dot-unvisited"></span>안품</div>
+              </div>
+
+              <button id="submit-exam-btn" class="btn btn-danger btn-full">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>답안 최종 제출</span>
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+
+      <!-- SCREEN 3: Result Screen -->
+      <section id="result-screen" class="screen">
+        <div class="result-layout">
+          
+          <div class="card result-card">
+            <div class="card-glow"></div>
+            <div class="result-header">
+              <span id="result-badge" class="result-badge pass">합격</span>
+              <h1 id="result-title" class="result-title">축하합니다! 시험에 합격하셨습니다.</h1>
+              <p class="result-subtitle">응시자 <strong id="result-user-name">JMCH</strong>님의 평가 분석 결과입니다.</p>
+            </div>
+
+            <!-- Score Circular Display -->
+            <div class="score-display-box">
+              <div class="circular-progress">
+                <div class="circular-value-container">
+                  <span id="result-score" class="score-number">92</span>
+                  <span class="score-total">/ 100점</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Detailed Stats Grid -->
+            <div class="stats-grid">
+              <div class="stat-box">
+                <span class="stat-title">맞춘 문항 수</span>
+                <span id="result-correct-count" class="stat-val text-success">46 / 50</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-title">소요 시간</span>
+                <span id="result-time-spent" class="stat-val">24분 15초</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-title">오답 비율</span>
+                <span id="result-wrong-rate" class="stat-val text-error">8%</span>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="result-actions">
+              <button id="restart-btn" class="btn btn-primary">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>처음으로 돌아가기</span>
+              </button>
+              <a href="#review-section" id="scroll-review-btn" class="btn btn-secondary">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>오답 노트 및 상세 복습</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Review and Rationales Container -->
+          <div class="card review-card" id="review-section">
+            <h2 class="review-heading">
+              <i class="fa-solid fa-list-check"></i>
+              <span>전체 문항 해설 및 복습 노트</span>
+            </h2>
+            <p class="review-desc">선택하신 정답과 오답 여부, 그리고 교재에 근거한 상세 정/오답 해설을 확인할 수 있습니다.</p>
+
+            <div class="review-filter-bar">
+              <button class="filter-btn active" data-filter="all">전체 (50)</button>
+              <button class="filter-btn" data-filter="correct">맞춘 문제 (<span id="filter-correct-count">0</span>)</button>
+              <button class="filter-btn" data-filter="wrong">틀린 문제 (<span id="filter-wrong-count">0</span>)</button>
+              <button class="filter-btn" data-filter="flagged">검토표시한 문제 (<span id="filter-flagged-count">0</span>)</button>
+            </div>
+
+            <div class="review-list" id="review-list">
+              <!-- Dynamically populated review cards -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="app-footer">
+      <p>&copy; 2026 스마택트(Smartact) | AI 에이전트 활용지도사 2급 공식 교재 교육 콘텐츠</p>
+    </footer>
+  </div>
+
+  <!-- Audio elements for micro-animations/actions -->
+  <audio id="audio-click" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
+  <audio id="audio-success" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav" preload="auto"></audio>
+  <audio id="audio-fail" src="https://assets.mixkit.co/active_storage/sfx/2018/2018-84.wav" preload="auto"></audio>
+
+  <!-- Main JavaScript File -->
+  <script src="app.js"></script>
+</body>
+</html>

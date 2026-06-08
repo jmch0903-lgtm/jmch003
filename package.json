@@ -1,0 +1,14 @@
+{
+  "name": "ai-agent-cbt",
+  "version": "1.0.0",
+  "description": "AI 에이전트 활용지도사 2급 모의고사 CBT",
+  "scripts": {
+    "dev": "sirv . --port 3000 --cors"
+  },
+  "dependencies": {
+    "pdf-parse": "^2.4.5"
+  },
+  "devDependencies": {
+    "sirv-cli": "^3.0.0"
+  }
+}
