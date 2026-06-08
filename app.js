@@ -3,7 +3,8 @@
    ========================================================================== */
 
 const state = {
-  questions: [],          // Loaded from questions.json
+  originalQuestions: [],  // Original loaded list from JSON
+  questions: [],          // Active shuffled list for current exam
   currentIndex: 0,        // Active question index (0 to 49)
   userAnswers: {},        // Stores { questionIndex: selectedOptionIndex }
   flaggedQuestions: new Set(), // Set of flagged question indices
@@ -157,7 +158,9 @@ async function loadQuestions() {
   try {
     const response = await fetch('./questions.json');
     if (!response.ok) throw new Error('Failed to load questions JSON');
-    state.questions = await response.json();
+    const data = await response.json();
+    state.originalQuestions = data;
+    state.questions = JSON.parse(JSON.stringify(data));
     console.log(`Loaded ${state.questions.length} questions successfully.`);
   } catch (error) {
     console.error('Error loading questions:', error);
@@ -307,6 +310,18 @@ function handleStartExam() {
   state.userAnswers = {};
   state.flaggedQuestions.clear();
   state.isSubmitted = false;
+
+  // Deep copy original questions to get a fresh copy
+  state.questions = JSON.parse(JSON.stringify(state.originalQuestions));
+  
+  // Shuffle questions
+  shuffleArray(state.questions);
+  
+  // Shuffle options for each question and re-assign question numbers sequentially
+  state.questions.forEach((q, idx) => {
+    q.questionNumber = idx + 1; // Display number sequentially
+    shuffleArray(q.answerOptions);
+  });
 
   // Initialize UI
   buildQuestionGrid();
@@ -756,4 +771,13 @@ function handleRestartApp() {
   
   // Return to Welcome Screen
   showScreen('welcome-screen');
+}
+
+// Fisher-Yates Shuffle Algorithm
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
