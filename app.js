@@ -205,6 +205,12 @@ function setupEventListeners() {
     });
   });
 
+  // Close hint tooltip when clicking elsewhere
+  document.addEventListener('click', (e) => {
+    if (!dom.hintBtn.contains(e.target) && !dom.hintTooltip.contains(e.target)) {
+      dom.hintTooltip.classList.add('hidden');
+    }
+  });
 }
 
 /* ==========================================================================

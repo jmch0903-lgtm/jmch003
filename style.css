@@ -104,6 +104,11 @@
   font-family: var(--font-family);
 }
 
+.hidden {
+  display: none !important;
+}
+
+
 html, body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
