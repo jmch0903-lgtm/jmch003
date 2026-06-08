@@ -202,12 +202,6 @@ function setupEventListeners() {
     });
   });
 
-  // Close hint tooltip when clicking elsewhere
-  document.addEventListener('click', (e) => {
-    if (!dom.hintBtn.contains(e.target) && !dom.hintTooltip.contains(e.target)) {
-      dom.hintTooltip.classList.add('hidden');
-    }
-  });
 }
 
 /* ==========================================================================
@@ -316,6 +310,7 @@ function handleStartExam() {
 
   // Initialize UI
   buildQuestionGrid();
+  dom.hintTooltip.classList.add('hidden'); // Ensure hint starts hidden
   renderQuestion();
   updateProgress();
   
@@ -369,8 +364,7 @@ function renderQuestion() {
   dom.qNumberTitle.textContent = `Q${question.questionNumber}`;
   dom.questionText.textContent = question.question;
   
-  // Hide Hint Tooltip
-  dom.hintTooltip.classList.add('hidden');
+  // Set Hint content (do not hide automatically on re-render)
   dom.hintContent.textContent = question.hint;
 
   // Flag Check State
@@ -489,6 +483,7 @@ function renderPracticeFeedback(question, chosenOpt) {
 
 function saveAndNavigate(targetIndex) {
   state.currentIndex = targetIndex;
+  dom.hintTooltip.classList.add('hidden'); // Hide hint tooltip when changing questions
   renderQuestion();
 }
 
