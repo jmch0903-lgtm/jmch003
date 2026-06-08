@@ -12,7 +12,7 @@ const state = {
   examMode: 'practice',   // 'practice' or 'exam'
   startTime: null,
   timeSpent: 0,           // in seconds
-  timeRemaining: 3000,    // 50 minutes in seconds
+  timeRemaining: 3600,    // 60 minutes in seconds
   timerInterval: null,
   isSubmitted: false,
   soundEnabled: true,
@@ -231,14 +231,14 @@ function showScreen(screenId) {
 
 function startTimer() {
   state.startTime = new Date();
-  state.timeRemaining = 3000; // Reset to 50 mins
+  state.timeRemaining = 3600; // Reset to 60 mins
   dom.timerBox.classList.remove('warning-time');
 
   updateTimerDisplay();
 
   state.timerInterval = setInterval(() => {
     state.timeRemaining--;
-    state.timeSpent = 3000 - state.timeRemaining;
+    state.timeSpent = 3600 - state.timeRemaining;
     updateTimerDisplay();
 
     // Warn at under 5 minutes (300 seconds)
